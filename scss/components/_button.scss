@@ -5,4 +5,15 @@
   padding: 10px 20px;
   max-width: fit-content;
   text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-block;
+  text-align: center;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: darken($color-primary, 10%) !important;
+    cursor: pointer;
+  }
 }
