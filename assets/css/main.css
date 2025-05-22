@@ -479,4 +479,13 @@ footer .footer-links .links ul a {
   margin-bottom: 1em;
 }
 
+.original-price {
+  color: #90A3BF;
+  text-decoration: line-through;
+  font-size: 0.95rem;
+  font-weight: 500;
+  opacity: 0.85;
+  margin-right: 0.5rem;
+}
+
 /*# sourceMappingURL=main.css.map */

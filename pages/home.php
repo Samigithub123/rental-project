@@ -24,7 +24,6 @@
         <?php
         require_once "database/connection.php";
         try {
-            // Haal de eerste 3 reguliere auto's op
             $stmt = $conn->query("SELECT * FROM cars WHERE type = 'regular' AND is_available = 1 LIMIT 3");
             while ($car = $stmt->fetch(PDO::FETCH_ASSOC)) : ?>
                 <div class="car-details">
@@ -92,7 +91,7 @@
         ?>
     </div>
     <div class="show-more">
-        <a href="#" class="button-primary" id="showMoreBtn">Toon alle</a>
+        <a href="#" class="button-primary" id="showMoreBtn">Toon meer</a>
     </div>
     </main>
 
@@ -109,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
             showMoreBtn.textContent = 'Verberg';
         } else {
             recommendedCars.style.display = 'none';
-            showMoreBtn.textContent = 'Toon alle';
+            showMoreBtn.textContent = 'Toon meer';
         }
     });
 
@@ -132,6 +131,19 @@ document.addEventListener('DOMContentLoaded', function() {
 .car-type.active {
     background-color: #007bff;
     color: white;
+}
+
+.original-price {
+    display: block;
+    color: #999;
+    text-decoration: line-through;
+    font-size: 0.875rem;
+}
+
+.current-price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
 }
 </style>
 

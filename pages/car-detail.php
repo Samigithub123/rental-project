@@ -68,6 +68,187 @@ try {
         </div>
     </main>
 
+    <style>
+        .car-detail-page {
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .car-detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 2rem;
+        }
+
+        .car-images {
+            width: 100%;
+            background-color: #3563E9;
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: contain;
+            background-color: #3563E9;
+            max-height: 400px;
+        }
+
+        .car-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .car-info h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: #1A202C;
+        }
+
+        .car-category {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #F6F7F9;
+            border-radius: 8px;
+            color: #3563E9;
+            font-weight: 500;
+        }
+
+        .car-specifications {
+            background: #F6F7F9;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .car-specifications h2 {
+            margin: 0 0 1rem 0;
+            font-size: 1.25rem;
+            color: #1A202C;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .spec-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0.5rem;
+        }
+
+        .spec-item img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .spec-item span {
+            color: #596780;
+            font-size: 0.875rem;
+        }
+
+        .spec-item strong {
+            color: #1A202C;
+            font-size: 1rem;
+        }
+
+        .car-description {
+            background: #F6F7F9;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .car-description h2 {
+            margin: 0 0 1rem 0;
+            font-size: 1.25rem;
+            color: #1A202C;
+        }
+
+        .car-description p {
+            margin: 0;
+            color: #596780;
+            line-height: 1.6;
+        }
+
+        .rental-info {
+            background: #F6F7F9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .original-price {
+            color: #90A3BF;
+            text-decoration: line-through;
+            font-size: 0.875rem;
+        }
+
+        .current-price {
+            display: flex;
+            align-items: baseline;
+            gap: 0.25rem;
+        }
+
+        .current-price .amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1A202C;
+        }
+
+        .current-price .period {
+            color: #596780;
+            font-size: 0.875rem;
+        }
+
+        .rental-info .button-primary {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .car-detail-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .rental-info {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+
    
 <?php
     }
