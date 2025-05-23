@@ -145,6 +145,12 @@ document.addEventListener('DOMContentLoaded', function() {
     font-weight: bold;
     color: #333;
 }
+
+.advertorial img[src*="car-rent-header-image-2"] {
+    max-width: 60%;
+    height: 50%;
+    object-fit: contain;
+}
 </style>
 
 <?php require "includes/footer.php" ?>
