@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    
 </head>
 <body>
 <div class="topbar">
@@ -39,14 +40,16 @@
             <div class="account-dropdown">
                 <ul>
                     <li><img src="assets/images/icons/setting.svg" alt=""><a href="#">Naar account</a></li>
-                    <li><img src="assets/images/icons/logout.svg" alt=""><a href="/Rental/logout">Uitloggen</a></li>
+                    <li><img src="assets/images/icons/logout.svg" alt=""><a href="/Rental/actions/logout.php">Uitloggen</a></li>
                 </ul>
             </div>
         </div>
         <?php }else{ ?>
-            <a href="" class="button-primary">Start met huren</a>
+            <a href="/Rental/actions/login.php" class="button-primary">Start met huren</a>
         <?php } ?>
 
     </div>
 </div>
 <div class="content">
+
+</div>
