@@ -41,15 +41,15 @@
                     while ($car = $stmt->fetch(PDO::FETCH_ASSOC)) : ?>
                         <div class="car-card" data-type="<?= htmlspecialchars($car['type']) ?>" data-category="<?= htmlspecialchars($car['category']) ?>">
                             <div class="car-image">
-                                <img src="<?= htmlspecialchars($car['image_url']) ?>" alt="<?= htmlspecialchars($car['brand']) ?>">
+                                <img src="/Rental/<?= htmlspecialchars($car['image_url']) ?>" alt="<?= htmlspecialchars($car['brand']) ?>">
                             </div>
                             <div class="car-info">
                                 <h3><?= htmlspecialchars($car['brand']) ?><?= $car['model'] ? ' ' . htmlspecialchars($car['model']) : '' ?></h3>
                                 <div class="car-category"><?= htmlspecialchars($car['category']) ?></div>
                                 <div class="car-specs">
-                                    <span><img src="assets/images/icons/gas-station.svg" alt=""><?= htmlspecialchars($car['fuel_capacity']) ?></span>
-                                    <span><img src="assets/images/icons/car.svg" alt=""><?= htmlspecialchars($car['transmission']) ?></span>
-                                    <span><img src="assets/images/icons/profile-2user.svg" alt=""><?= htmlspecialchars($car['capacity']) ?></span>
+                                    <span><img src="/Rental/assets/images/icons/gas-station.svg" alt=""><?= htmlspecialchars($car['fuel_capacity']) ?></span>
+                                    <span><img src="/Rental/assets/images/icons/car.svg" alt=""><?= htmlspecialchars($car['transmission']) ?></span>
+                                    <span><img src="/Rental/assets/images/icons/profile-2user.svg" alt=""><?= htmlspecialchars($car['capacity']) ?></span>
                                 </div>
                                 <div class="car-price">
                                     <?php if ($car['original_price']): ?>
@@ -57,7 +57,7 @@
                                     <?php endif; ?>
                                     <span class="current-price">€<?= number_format($car['price'], 2, ',', '.') ?> / dag</span>
                                 </div>
-                                <a href="/car-detail?id=<?= $car['id'] ?>" class="button-primary">Bekijk nu</a>
+                                <a href="/Rental/car-detail?id=<?= $car['id'] ?>" class="button-primary">Bekijk nu</a>
                             </div>
                         </div>
                     <?php endwhile;
@@ -293,6 +293,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const categoryBtns = document.querySelectorAll('.category-btn');
     const cars = document.querySelectorAll('.car-card');
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterType = urlParams.get('filter');
+
     function filterCars() {
         const activeType = document.querySelector('.filter-btn.active').dataset.type;
         const activeCategories = Array.from(document.querySelectorAll('.category-btn.active'))
@@ -305,6 +308,15 @@ document.addEventListener('DOMContentLoaded', function() {
             
             car.style.display = matchesType && matchesCategory ? 'block' : 'none';
         });
+    }
+
+    if (filterType === 'business') {
+        const businessBtn = document.querySelector('.filter-btn[data-type="business"]');
+        if (businessBtn) {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            businessBtn.classList.add('active');
+            filterCars();
+        }
     }
 
     filterBtns.forEach(btn => {
@@ -321,7 +333,6 @@ document.addEventListener('DOMContentLoaded', function() {
             filterCars();
         });
     });
-
 });
 </script>
 

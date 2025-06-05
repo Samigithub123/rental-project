@@ -1,6 +1,6 @@
 <?php
 
-$basePath = 'rental';
+$basePath = 'Rental';
 
 $requestUri = $_SERVER['REQUEST_URI'];
 

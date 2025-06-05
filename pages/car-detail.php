@@ -19,7 +19,7 @@ try {
         <div class="container">
             <div class="car-detail-content">
                 <div class="car-images">
-                    <img src="<?= htmlspecialchars($car['image_url']) ?>" alt="<?= htmlspecialchars($car['brand']) ?>" class="main-image">
+                    <img src="/Rental/<?= htmlspecialchars($car['image_url']) ?>" alt="<?= htmlspecialchars($car['brand']) ?>" class="main-image">
                 </div>
                 <div class="car-info">
                     <h1><?= htmlspecialchars($car['brand']) ?><?= $car['model'] ? ' ' . htmlspecialchars($car['model']) : '' ?></h1>
@@ -29,17 +29,17 @@ try {
                         <h2>Specificaties</h2>
                         <div class="specs-grid">
                             <div class="spec-item">
-                                <img src="assets/images/icons/gas-station.svg" alt="Brandstof">
+                                <img src="/Rental/assets/images/icons/gas-station.svg" alt="Brandstof">
                                 <span>Brandstof capaciteit</span>
                                 <strong><?= htmlspecialchars($car['fuel_capacity']) ?></strong>
                             </div>
                             <div class="spec-item">
-                                <img src="assets/images/icons/car.svg" alt="Transmissie">
+                                <img src="/Rental/assets/images/icons/car.svg" alt="Transmissie">
                                 <span>Transmissie</span>
                                 <strong><?= htmlspecialchars($car['transmission']) ?></strong>
                             </div>
                             <div class="spec-item">
-                                <img src="assets/images/icons/profile-2user.svg" alt="Capaciteit">
+                                <img src="/Rental/assets/images/icons/profile-2user.svg" alt="Capaciteit">
                                 <span>Capaciteit</span>
                                 <strong><?= htmlspecialchars($car['capacity']) ?></strong>
                             </div>
