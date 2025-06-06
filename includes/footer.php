@@ -8,7 +8,7 @@
         <div class="links">
             <h3>Over ons</h3>
             <ul>
-                <li><a href="/over-ons">Het team</a></li>
+                <li><a href="/over-ons">Het Rydr team</a></li>
                 <li><a href="#">Onze visie</a></li>
                 <li><a href="#">Vacatures</a></li>
             </ul>
@@ -25,10 +25,10 @@
         <div class="links">
             <h3>Socials</h3>
             <ul>
-                <li><a href="#">Discord</a></li>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">Facebook</a></li>
+                <li><a href="https://ptb.discord.com/register">Discord</a></li>
+                <li><a href="https://www.instagram.com/">Instagram</a></li>
+                <li><a href="https://x.com/">Twitter/X</a></li>
+                <li><a href="https://www.facebook.com/facebook/">Facebook</a></li>
             </ul>
         </div>
     </div>
