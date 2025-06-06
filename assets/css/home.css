@@ -1,0 +1,40 @@
+.car-type {
+    color: #90A3BF;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.car-type:hover {
+    background-color: #f0f0f0;
+}
+
+.car-type.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.original-price {
+    display: block;
+    color: #999;
+    text-decoration: line-through;
+    font-size: 0.875rem;
+}
+
+.current-price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.advertorial img[src*="car-rent-header-image-2"] {
+    max-width: 60%;
+    height: 50%;
+    object-fit: contain;
+}
+
+.button-primary {
+    position: relative;
+    z-index: 10;
+}

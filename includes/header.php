@@ -21,16 +21,11 @@
             Rydr.
         </a>
     </div>
-    <form>
-        <input type="search" name="search" placeholder="Welke auto wilt u huren?">
-        <img src="/Rental/assets/images/icons/search-normal.svg" alt="" class="search-icon">
-    </form>
-
     <nav>
         <ul>
             <li><a href="/Rental/">Home</a></li>
             <li><a href="/Rental/ons-aanbod">Ons aanbod</a></li>
-            <li><a href="#">Hulp nodig?</a></li>
+            <li><a href="/Rental/hulp">Hulp nodig?</a></li>
         </ul>
     </nav>
     <div class="menu">
@@ -45,11 +40,11 @@
             </div>
         </div>
         <?php }else{ ?>
-            <a href="/Rental/actions/login.php" class="button-primary">Start met huren</a>
+            <a href="login-form" class="button-primary">Start met huren</a>
         <?php } ?>
 
     </div>
 </div>
 <div class="content">
 
-</div>
+</div>  

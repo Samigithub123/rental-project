@@ -12,6 +12,7 @@ if ($password === $confirm_password) {
     $check_account->execute();
 
     if ($check_account->rowCount() === 0) {
+        //Extra hoge cost om nog beter te beveiligen
         $options = ['cost' => 14];
         $encrypted_password = password_hash($password, PASSWORD_DEFAULT, $options);
 
