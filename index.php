@@ -22,7 +22,14 @@ if ($path === 'register-handler') {
     require_once __DIR__ . '/actions/register.php'; 
     exit; 
 } 
- 
+
+// Handle special cases for pages with hyphens
+if ($path === 'mijn-reserveringen') {
+    $path = 'mijn_reserveringen';
+} else if ($path === 'reservering_bevestiging') {
+    $path = 'reservering_bevestiging';
+}
+
 $page = empty($path) ? 'home' : $path; 
 $file = __DIR__ . '/pages/' . $page . '.php'; 
  

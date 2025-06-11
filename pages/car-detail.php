@@ -60,13 +60,136 @@ try {
                                 <span class="period">/ dag</span>
                             </span>
                         </div>
-                        <a href="#" class="button-primary">Reserveer nu</a>
+                        <button class="button-primary" id="openReservationForm">Reserveer nu</button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-   
+
+    <!-- Reservation Modal -->
+    <div id="reservationModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Reserveer deze auto</h2>
+            <form id="reservationForm" action="/Rental/process-reservation.php" method="POST">
+                <input type="hidden" name="car_id" value="<?= $car['id'] ?>">
+                <div class="form-group">
+                    <label for="start_date">Startdatum:</label>
+                    <input type="date" id="start_date" name="start_date" required min="<?= date('Y-m-d') ?>">
+                </div>
+                <div class="form-group">
+                    <label for="end_date">Einddatum:</label>
+                    <input type="date" id="end_date" name="end_date" required min="<?= date('Y-m-d') ?>">
+                </div>
+                <div class="form-group">
+                    <label>Totale prijs:</label>
+                    <div id="totalPrice">€0,00</div>
+                </div>
+                <button type="submit" class="button-primary">Bevestig reservering</button>
+            </form>
+        </div>
+    </div>
+
+    <style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 80%;
+        max-width: 500px;
+        position: relative;
+    }
+
+    .close {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #1A202C;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #E2E8F0;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    #totalPrice {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #1A202C;
+        margin-top: 0.5rem;
+    }
+    </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('reservationModal');
+        const btn = document.getElementById('openReservationForm');
+        const span = document.getElementsByClassName('close')[0];
+        const startDate = document.getElementById('start_date');
+        const endDate = document.getElementById('end_date');
+        const totalPrice = document.getElementById('totalPrice');
+        const dailyPrice = <?= $car['price'] ?>;
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function calculateTotalPrice() {
+            if (startDate.value && endDate.value) {
+                const start = new Date(startDate.value);
+                const end = new Date(endDate.value);
+                const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+                if (days > 0) {
+                    const total = days * dailyPrice;
+                    totalPrice.textContent = '€' + total.toFixed(2).replace('.', ',');
+                } else {
+                    totalPrice.textContent = '€0,00';
+                }
+            }
+        }
+
+        startDate.addEventListener('change', calculateTotalPrice);
+        endDate.addEventListener('change', calculateTotalPrice);
+    });
+    </script>
 
 <?php
     }

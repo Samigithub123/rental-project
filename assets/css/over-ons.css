@@ -1,0 +1,48 @@
+main.over-ons {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+main.over-ons h1, main.over-ons h2, main.over-ons h3 {
+    color: #3563E9;
+}
+
+main.over-ons h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+main.over-ons h2 {
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #3563E9;
+    padding-bottom: 0.5rem;
+}
+
+main.over-ons h3 {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+main.over-ons section {
+    margin-bottom: 2rem;
+}
+
+main.over-ons article {
+    background-color: #f9f9f9;
+    border-left: 4px solid #3563E9;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    transition: transform 0.2s ease;
+}
+
+main.over-ons article:hover {
+    transform: scale(1.02);
+    background-color: #eef6fb;
+}

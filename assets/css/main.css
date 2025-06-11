@@ -481,4 +481,9 @@ body .topbar .menu .account.active .account-dropdown {
   margin-right: 0.5rem;
 }
 
+footer .brand h2 {
+  text-decoration: none;
+  margin: 0;
+}
+
 /*# sourceMappingURL=main.css.map */

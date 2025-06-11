@@ -9,17 +9,17 @@
             <h3>Over ons</h3>
             <ul>
                 <li><a href="/Rental/over-ons">Het team</a></li>
-                <li><a href="#">Onze visie</a></li>
-                <li><a href="#">Vacatures</a></li>
+                <li><a href="/Rental/404">Onze visie</a></li>
+                <li><a href="/Rental/404">Vacatures</a></li>
             </ul>
         </div>
         <div class="links">
             <h3>Community</h3>
             <ul>
-                <li><a href="#">Events</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Podcast</a></li>
-                <li><a href="#">Invite a friend</a></li>
+                <li><a href="/Rental/404">Events</a></li>
+                <li><a href="/Rental/404">Blog</a></li>
+                <li><a href="/Rental/404">Podcast</a></li>
+                <li><a href="/Rental/404">Invite a friend</a></li>
             </ul>
         </div>
         <div class="links">
@@ -41,8 +41,8 @@
     </div>
     <div class="legal-links">
         <ul>
-            <li><a href="#">Privacy & Policy</a></li>
-            <li><a href="#">Terms & Condition</a></li>
+            <li><a href="/Rental/404">Privacy & Policy</a></li>
+            <li><a href="/Rental/404">Terms & Condition</a></li>
         </ul>
     </div>
 </div>
