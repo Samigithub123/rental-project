@@ -10,16 +10,16 @@
             
             <div class="faq-item">
                 <h3>Hoe kan ik een auto huren?</h3>
-                <p>Om een auto te huren moet u eerst een account aanmaken. Klik op "Start met huren" en maak een account aan. Na het inloggen kunt u direct een auto uitkiezen en reserveren.</p>
+                <p>Om een auto te huren moet u eerst een account aanmaken. Klik op "Start met huren" en maak een account aan. Na het inloggen kunt u een auto uitkiezen en reserveren.</p>
             </div>
 
             <div class="faq-item">
                 <h3>Wat zijn de vereisten om een auto te huren?</h3>
                 <p>U heeft het volgende nodig om een auto te huren:</p>
                 <ul>
-                    <li>Een geldig rijbewijs (minimaal 21 jaar)</li>
+                    <li>Een geldig rijbewijs (minimaal 18 jaar)</li>
                     <li>Een geldig identiteitsbewijs</li>
-                    <li>Een creditcard voor de borg</li>
+                    <li>Een creditcard of bankkaart voor de borg</li>
                 </ul>
             </div>
 

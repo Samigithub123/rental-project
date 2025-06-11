@@ -24,7 +24,7 @@
     <nav>
         <ul>
             <li><a href="/Rental/">Home</a></li>
-            <li><a href="/Rental/ons-aanbod">Ons aanbod</a></li>
+            <li><a href="/Rental/ons-aanbod">Ons Aanbod</a></li>
             <li><a href="/Rental/hulp">Hulp nodig?</a></li>
         </ul>
     </nav>
