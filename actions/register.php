@@ -33,6 +33,6 @@ if ($password === $confirm_password) {
 } else {
     $_SESSION["message"] = "Wachtwoorden komen niet overeen.";
     $_SESSION["email"] = htmlspecialchars($email);
-    header("Location: /Rental/register-form");
+    header("Location: /register-form");
     exit();
 }

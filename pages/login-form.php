@@ -1,6 +1,6 @@
 <?php require "includes/header.php" ?>
 <main>
-    <form action="/Rental/login-handler" class="account-form" method="post">
+    <form action="/login-handler" class="account-form" method="post">
         <h2>Log in</h2>
         <?php if (isset($_SESSION['success'])) { ?>
             <div class="succes-message"><?= $_SESSION['success'] ?></div>
@@ -11,7 +11,7 @@
         <input type="password" name="password" id="password" placeholder="Uw wachtwoord" required>
         <input type="submit" value="Log in" class="button-primary">
     </form>
-    <p style="text-align: center; margin-top: 1rem;">Nog geen account? <a href="/Rental/register-form">Registreer hier</a>.</p>
+    <p style="text-align: center; margin-top: 1rem;">Nog geen account? <a href="/register-form">Registreer hier</a>.</p>
 </main>
 
 <?php require "includes/footer.php" ?>

@@ -4,7 +4,7 @@ require_once "database/connection.php";
 
 // Check if user is logged in
 if (!isset($_SESSION['id'])) {
-    header('Location: /Rental/login.php');
+    header('Location: /login.php');
     exit();
 }
 
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reservation_id'])) {
         
         if ($stmt->rowCount() === 0) {
             $_SESSION['error'] = "Deze reservering kan niet worden geannuleerd.";
-            header('Location: /Rental/mijn_reserveringen');
+            header('Location: /mijn_reserveringen');
             exit();
         }
 
@@ -33,5 +33,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reservation_id'])) {
     }
 }
 
-header('Location: /Rental/mijn_reserveringen');
+header('Location: /mijn_reserveringen');
 exit(); 

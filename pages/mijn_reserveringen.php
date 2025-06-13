@@ -1,11 +1,11 @@
 <?php 
-<link rel="stylesheet" href="/Rental/assets/css/reservering.css">
+<link rel="stylesheet" href="/assets/css/reservering.css">
 require "includes/header.php";
 require_once "database/connection.php";
 
 // Check if user is logged in
 if (!isset($_SESSION['id'])) {
-    header('Location: /Rental/login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
+    header('Location: /login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
     exit();
 }
 
@@ -24,7 +24,7 @@ try {
 }
 ?>
 
-<link rel="stylesheet" href="/Rental/assets/css/mijn-reserveringen.css">
+<link rel="stylesheet" href="/assets/css/mijn-reserveringen.css">
 
 <main class="mijn-reserveringen">
     <div class="container">
@@ -53,14 +53,14 @@ try {
         <?php if (empty($reservations)): ?>
             <div class="no-reservations">
                 <p>Je hebt nog geen reserveringen.</p>
-                <a href="/Rental/ons-aanbod" class="button-primary">Bekijk ons aanbod</a>
+                <a href="/ons-aanbod" class="button-primary">Bekijk ons aanbod</a>
             </div>
         <?php else: ?>
             <div class="reservations-grid">
                 <?php foreach ($reservations as $reservation): ?>
                     <div class="reservation-card">
                         <div class="car-image">
-                            <img src="/Rental/<?= htmlspecialchars($reservation['image_url']) ?>" alt="<?= htmlspecialchars($reservation['brand']) ?>">
+                            <img src="/<?= htmlspecialchars($reservation['image_url']) ?>" alt="<?= htmlspecialchars($reservation['brand']) ?>">
                         </div>
                         <div class="reservation-details">
                             <h3><?= htmlspecialchars($reservation['brand']) ?><?= $reservation['model'] ? ' ' . htmlspecialchars($reservation['model']) : '' ?></h3>
@@ -77,7 +77,7 @@ try {
                                 <?= ucfirst($reservation['status']) ?>
                             </div>
                             <?php if ($reservation['status'] === 'pending'): ?>
-                                <form action="/Rental/cancel-reservation.php" method="POST" class="cancel-form">
+                                <form action="/cancel-reservation.php" method="POST" class="cancel-form">
                                     <input type="hidden" name="reservation_id" value="<?= $reservation['id'] ?>">
                                     <button type="submit" class="button-secondary">Annuleer reservering</button>
                                 </form>

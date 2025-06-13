@@ -1,6 +1,6 @@
 <?php require "includes/header.php" ?>
 <?php require_once "database/connection.php" ?>
-<link rel="stylesheet" href="/Rental/assets/css/ons-aanbod.css">
+<link rel="stylesheet" href="/assets/css/ons-aanbod.css">
 
 <main class="ons-aanbod">
     <div class="main-flex-container">
@@ -45,11 +45,11 @@
                                 <h3><?= htmlspecialchars($car['brand']) ?><?= $car['model'] ? ' ' . htmlspecialchars($car['model']) : '' ?></h3>
                                 <div class="car-type"><?= htmlspecialchars($car['category']) ?></div>
                             </div>
-                            <img src="/Rental/<?= htmlspecialchars($car['image_url']) ?>" alt="<?= htmlspecialchars($car['brand']) ?>">
+                            <img src="/<?= htmlspecialchars($car['image_url']) ?>" alt="<?= htmlspecialchars($car['brand']) ?>">
                             <div class="car-specification">
-                                <span><img src="/Rental/assets/images/icons/gas-station.svg" alt=""><?= htmlspecialchars($car['fuel_capacity']) ?></span>
-                                <span><img src="/Rental/assets/images/icons/car.svg" alt=""><?= htmlspecialchars($car['transmission']) ?></span>
-                                <span><img src="/Rental/assets/images/icons/profile-2user.svg" alt=""><?= htmlspecialchars($car['capacity']) ?></span>
+                                <span><img src="/assets/images/icons/gas-station.svg" alt=""><?= htmlspecialchars($car['fuel_capacity']) ?></span>
+                                <span><img src="/assets/images/icons/car.svg" alt=""><?= htmlspecialchars($car['transmission']) ?></span>
+                                <span><img src="/assets/images/icons/profile-2user.svg" alt=""><?= htmlspecialchars($car['capacity']) ?></span>
                             </div>
                             <div class="rent-details">
                                 <span>
@@ -58,7 +58,7 @@
                                     <?php endif; ?>
                                     <span class="font-weight-bold">€<?= number_format($car['price'], 2, ',', '.') ?></span> / dag
                                 </span>
-                                <a href="/Rental/car-detail?id=<?= $car['id'] ?>" class="button-primary">Bekijk nu</a>
+                                <a href="/car-detail?id=<?= $car['id'] ?>" class="button-primary">Bekijk nu</a>
                             </div>
                         </div>
                     <?php endwhile;

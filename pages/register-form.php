@@ -1,6 +1,6 @@
 <?php require "includes/header.php" ?>
 <main>
-    <form action="/Rental/register-handler" method="post" class="account-form">
+    <form action="/register-handler" method="post" class="account-form">
         <h2>Maak een account aan</h2>
         <?php if (isset($_SESSION['message'])): ?>
             <div class="message">

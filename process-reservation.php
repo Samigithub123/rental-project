@@ -4,7 +4,7 @@ require_once "database/connection.php";
 
 // Check if user is logged in
 if (!isset($_SESSION['id'])) {
-    header('Location: /Rental/login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
+    header('Location: /login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
     exit();
 }
 
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($conflicting_reservations > 0) {
             $_SESSION['error'] = "Deze auto is niet beschikbaar voor de geselecteerde datums.";
-            header('Location: /Rental/car-detail.php?id=' . $car_id);
+            header('Location: /car-detail.php?id=' . $car_id);
             exit();
         }
 
@@ -53,15 +53,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$car_id, $user_id, $start_date, $end_date, $total_price]);
 
         $_SESSION['success'] = "Je reservering is succesvol aangemaakt!";
-        header('Location: /Rental/reservering_bevestiging');
+        header('Location: /reservering_bevestiging');
         exit();
 
     } catch(PDOException $e) {
         $_SESSION['error'] = "Er is een fout opgetreden bij het maken van de reservering.";
-        header('Location: /Rental/car-detail.php?id=' . $car_id);
+        header('Location: /car-detail.php?id=' . $car_id);
         exit();
     }
 } else {
-    header('Location: /Rental/');
+    header('Location: /');
     exit();
 } 

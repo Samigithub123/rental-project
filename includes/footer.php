@@ -8,18 +8,18 @@
         <div class="links">
             <h3>Over ons</h3>
             <ul>
-                <li><a href="/Rental/over-ons">Het team</a></li>
-                <li><a href="/Rental/404">Onze visie</a></li>
-                <li><a href="/Rental/404">Vacatures</a></li>
+                <li><a href="/over-ons">Het team</a></li>
+                <li><a href="/404">Onze visie</a></li>
+                <li><a href="/404">Vacatures</a></li>
             </ul>
         </div>
         <div class="links">
             <h3>Community</h3>
             <ul>
-                <li><a href="/Rental/404">Events</a></li>
-                <li><a href="/Rental/404">Blog</a></li>
-                <li><a href="/Rental/404">Podcast</a></li>
-                <li><a href="/Rental/404">Invite a friend</a></li>
+                <li><a href="/404">Events</a></li>
+                <li><a href="/404">Blog</a></li>
+                <li><a href="/404">Podcast</a></li>
+                <li><a href="/404">Invite a friend</a></li>
             </ul>
         </div>
         <div class="links">
@@ -41,8 +41,8 @@
     </div>
     <div class="legal-links">
         <ul>
-            <li><a href="/Rental/404">Privacy & Policy</a></li>
-            <li><a href="/Rental/404">Terms & Condition</a></li>
+            <li><a href="/404">Privacy & Policy</a></li>
+            <li><a href="/404">Terms & Condition</a></li>
         </ul>
     </div>
 </div>
@@ -51,8 +51,8 @@
         <h2>Welkom bij Rydr</h2>
         <p>Kies hoe je verder wilt gaan:</p>
         <div class="modal-actions">
-            <a href="/Rental/login-form" class="button-secondary">Inloggen</a>
-            <a href="/Rental/register-form" class="button-primary">Account aanmaken</a>
+            <a href="/login-form" class="button-secondary">Inloggen</a>
+            <a href="/register-form" class="button-primary">Account aanmaken</a>
         </div>
         <button class="modal-close">&times;</button>
     </div>

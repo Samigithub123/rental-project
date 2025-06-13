@@ -1,5 +1,5 @@
 <?php require "includes/header.php" ?>
-<link rel="stylesheet" href="/Rental/assets/css/hulp.css">
+<link rel="stylesheet" href="/assets/css/hulp.css">
 
 <main class="help-page">
     <div class="help-container">

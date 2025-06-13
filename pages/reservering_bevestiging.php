@@ -4,7 +4,7 @@ require_once "database/connection.php";
 
 // Check if user is logged in
 if (!isset($_SESSION['id'])) {
-    header('Location: /Rental/login.php');
+    header('Location: /login.php');
     exit();
 }
 
@@ -22,16 +22,16 @@ try {
     $reservation = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$reservation) {
-        header('Location: /Rental/mijn_reserveringen');
+        header('Location: /mijn_reserveringen');
         exit();
     }
 } catch(PDOException $e) {
-    header('Location: /Rental/mijn_reserveringen');
+    header('Location: /mijn_reserveringen');
     exit();
 }
 ?>
 
-<link rel="stylesheet" href="/Rental/assets/css/reservering.css">
+<link rel="stylesheet" href="/assets/css/reservering.css">
 
 <main class="reservering-bevestiging">
     <div class="container">
@@ -50,7 +50,7 @@ try {
             <div class="reservation-details">
                 <div class="car-info">
                     <div class="car-image">
-                        <img src="/Rental/<?= htmlspecialchars($reservation['image_url']) ?>" alt="<?= htmlspecialchars($reservation['brand']) ?>">
+                        <img src="/<?= htmlspecialchars($reservation['image_url']) ?>" alt="<?= htmlspecialchars($reservation['brand']) ?>">
                     </div>
                     <div class="car-details">
                         <h2><?= htmlspecialchars($reservation['brand']) ?><?= $reservation['model'] ? ' ' . htmlspecialchars($reservation['model']) : '' ?></h2>
@@ -79,8 +79,8 @@ try {
             </div>
 
             <div class="confirmation-actions">
-                <a href="/Rental/mijn_reserveringen" class="button-primary">Bekijk al mijn reserveringen</a>
-                <a href="/Rental/ons-aanbod" class="button-secondary">Bekijk meer auto's</a>
+                <a href="/mijn_reserveringen" class="button-primary">Bekijk al mijn reserveringen</a>
+                <a href="/ons-aanbod" class="button-secondary">Bekijk meer auto's</a>
             </div>
         </div>
     </div>

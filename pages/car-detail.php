@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/Rental/assets/css/car-detail.css">
+<link rel="stylesheet" href="/assets/css/car-detail.css">
 <?php require "includes/header.php";
 require_once "database/connection.php";
 
@@ -18,7 +18,7 @@ try {
         <div class="container">
             <div class="car-detail-content">
                 <div class="car-images">
-                    <img src="/Rental/<?= htmlspecialchars($car['image_url']) ?>" alt="<?= htmlspecialchars($car['brand']) ?>" class="main-image">
+                    <img src="/<?= htmlspecialchars($car['image_url']) ?>" alt="<?= htmlspecialchars($car['brand']) ?>" class="main-image">
                 </div>
                 <div class="car-info">
                     <h1><?= htmlspecialchars($car['brand']) ?><?= $car['model'] ? ' ' . htmlspecialchars($car['model']) : '' ?></h1>
@@ -28,17 +28,17 @@ try {
                         <h2>Specificaties</h2>
                         <div class="specs-grid">
                             <div class="spec-item">
-                                <img src="/Rental/assets/images/icons/gas-station.svg" alt="Brandstof">
+                                <img src="/assets/images/icons/gas-station.svg" alt="Brandstof">
                                 <span>Brandstof capaciteit</span>
                                 <strong><?= htmlspecialchars($car['fuel_capacity']) ?></strong>
                             </div>
                             <div class="spec-item">
-                                <img src="/Rental/assets/images/icons/car.svg" alt="Transmissie">
+                                <img src="/assets/images/icons/car.svg" alt="Transmissie">
                                 <span>Transmissie</span>
                                 <strong><?= htmlspecialchars($car['transmission']) ?></strong>
                             </div>
                             <div class="spec-item">
-                                <img src="/Rental/assets/images/icons/profile-2user.svg" alt="Capaciteit">
+                                <img src="/assets/images/icons/profile-2user.svg" alt="Capaciteit">
                                 <span>Capaciteit</span>
                                 <strong><?= htmlspecialchars($car['capacity']) ?></strong>
                             </div>
@@ -72,7 +72,7 @@ try {
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Reserveer deze auto</h2>
-            <form id="reservationForm" action="/Rental/process-reservation.php" method="POST">
+            <form id="reservationForm" action="/process-reservation.php" method="POST">
                 <input type="hidden" name="car_id" value="<?= $car['id'] ?>">
                 <div class="form-group">
                     <label for="start_date">Startdatum:</label>

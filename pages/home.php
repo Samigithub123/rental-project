@@ -1,19 +1,19 @@
 <?php require "includes/header.php" ?>
-<link rel="stylesheet" href="/Rental/assets/css/home.css">
+<link rel="stylesheet" href="/assets/css/home.css">
 
     <header>
         <div class="advertorials">
             <div class="advertorial">
                 <h2>Hét platform om een auto te huren</h2>
                 <p>Snel en eenvoudig een auto huren. Natuurlijk voor een lage prijs.</p>
-                <a href="/Rental/ons-aanbod" class="button-primary">Huur nu een auto</a>
+                <a href="/ons-aanbod" class="button-primary">Huur nu een auto</a>
                 <img src="assets/images/car-rent-header-image-1.png" alt="">
                 <img src="assets/images/header-circle-background.svg" alt="" class="background-header-element">
             </div>
             <div class="advertorial">
                 <h2>Wij verhuren ook bedrijfswagens</h2>
                 <p>Voor een vaste lage prijs met prettig voordelen.</p>
-                <a href="/Rental/ons-aanbod?filter=business" class="button-primary">Huur een bedrijfswagen</a>
+                <a href="/ons-aanbod?filter=business" class="button-primary">Huur een bedrijfswagen</a>
                 <img src="assets/images/car-rent-header-image-2.png" alt="">
                 <img src="assets/images/header-block-background.svg" alt="" class="background-header-element">
             </div>
@@ -48,7 +48,7 @@
                             <?php endif; ?>
                             <span class="font-weight-bold">€<?= number_format($car['price'], 2, ',', '.') ?></span> / dag
                         </span>
-                        <a href="/Rental/car-detail?id=<?= $car['id'] ?>" class="button-primary">Bekijk nu</a>
+                        <a href="/car-detail?id=<?= $car['id'] ?>" class="button-primary">Bekijk nu</a>
                     </div>
                 </div>
             <?php endwhile;
@@ -83,7 +83,7 @@
                             <?php endif; ?>
                             <span class="font-weight-bold">€<?= number_format($car['price'], 2, ',', '.') ?></span> / dag
                         </span>
-                        <a href="/Rental/car-detail?id=<?= $car['id'] ?>" class="button-primary">Bekijk nu</a>
+                        <a href="/car-detail?id=<?= $car['id'] ?>" class="button-primary">Bekijk nu</a>
                     </div>
                 </div>
             <?php endwhile;
