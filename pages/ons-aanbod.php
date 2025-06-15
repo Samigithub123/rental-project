@@ -1,5 +1,8 @@
-<?php require "includes/header.php" ?>
-<?php require_once "database/connection.php" ?>
+<?php 
+require "includes/header.php";
+require_once "database/connection.php";
+?>
+
 <link rel="stylesheet" href="/assets/css/ons-aanbod.css">
 
 <main class="ons-aanbod">

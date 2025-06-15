@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 <div class="topbar">
@@ -31,11 +31,11 @@
     <div class="menu">
         <?php if(isset($_SESSION['id'])){ ?>
         <div class="account">
-            <img src="assets/images/profil.png" alt="">
+            <img src="<?php echo isset($_SESSION['profile_image']) ? $_SESSION['profile_image'] : '/assets/images/profil.png'; ?>" alt="Profile Picture">
             <div class="account-dropdown">
                 <ul>
-                    <li><img src="assets/images/icons/setting.svg" alt=""><a href="#">Naar account</a></li>
-                    <li><img src="assets/images/icons/logout.svg" alt=""><a href="/actions/logout.php">Uitloggen</a></li>
+                    <li><img src="/assets/images/icons/setting.svg" alt=""><a href="/pages/account.php">Naar account</a></li>
+                    <li><img src="/assets/images/icons/logout.svg" alt=""><a href="/actions/logout.php">Uitloggen</a></li>
                 </ul>
             </div>
         </div>
@@ -47,4 +47,24 @@
 </div>
 <div class="content">
 
-</div>  
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const account = document.querySelector('.account');
+    const dropdown = document.querySelector('.account-dropdown');
+
+    if (account && dropdown) {
+        account.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!account.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+    }
+});
+</script>  

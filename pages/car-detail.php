@@ -2,8 +2,14 @@
 <?php require "includes/header.php";
 require_once "database/connection.php";
 
-
 $car_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$is_favorite = false;
+
+if (isset($_SESSION['id'])) {
+    $stmt = $conn->prepare("SELECT id FROM favorites WHERE user_id = ? AND car_id = ?");
+    $stmt->execute([$_SESSION['id'], $car_id]);
+    $is_favorite = $stmt->fetch() ? true : false;
+}
 
 try {
     $stmt = $conn->prepare("SELECT * FROM cars WHERE id = ? AND is_available = 1");
@@ -14,14 +20,37 @@ try {
         echo "<div class='container'><h2>Auto niet gevonden</h2></div>";
     } else {
 ?>
+    <link rel="stylesheet" href="/assets/css/car-detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <main class="car-detail-page">
         <div class="container">
+            <?php if (isset($_SESSION['success'])): ?>
+                <div class="success-message">
+                    <?= $_SESSION['success'] ?>
+                    <?php unset($_SESSION['success']); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['error'])): ?>
+                <div class="error-message">
+                    <?= $_SESSION['error'] ?>
+                    <?php unset($_SESSION['error']); ?>
+                </div>
+            <?php endif; ?>
+
             <div class="car-detail-content">
                 <div class="car-images">
                     <img src="/<?= htmlspecialchars($car['image_url']) ?>" alt="<?= htmlspecialchars($car['brand']) ?>" class="main-image">
                 </div>
                 <div class="car-info">
-                    <h1><?= htmlspecialchars($car['brand']) ?><?= $car['model'] ? ' ' . htmlspecialchars($car['model']) : '' ?></h1>
+                    <div class="car-header">
+                        <h1><?= htmlspecialchars($car['brand']) ?><?= $car['model'] ? ' ' . htmlspecialchars($car['model']) : '' ?></h1>
+                        <?php if (isset($_SESSION['id'])): ?>
+                            <button class="favorite-btn <?= $is_favorite ? 'active' : '' ?>" data-car-id="<?= $car['id'] ?>">
+                                <i class="<?= $is_favorite ? 'fa-solid' : 'fa-regular' ?> fa-heart"></i>
+                            </button>
+                        <?php endif; ?>
+                    </div>
                     <div class="car-category"><?= htmlspecialchars($car['category']) ?></div>
                     
                     <div class="car-specifications">
@@ -60,19 +89,28 @@ try {
                                 <span class="period">/ dag</span>
                             </span>
                         </div>
-                        <button class="button-primary" id="openReservationForm">Reserveer nu</button>
+                        <?php if (isset($_SESSION['id'])): ?>
+                            <button class="button-primary" id="openReservationForm">Reserveer nu</button>
+                        <?php else: ?>
+                            <a href="/login-form" class="button-primary">Login om te reserveren</a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
+    <?php if (isset($_SESSION['id'])): ?>
     <!-- Reservation Modal -->
     <div id="reservationModal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Reserveer deze auto</h2>
-            <form id="reservationForm" action="/process-reservation.php" method="POST">
+            <?php if (isset($_SESSION['error'])): ?>
+                <div class="error-message"><?= $_SESSION['error'] ?></div>
+                <?php unset($_SESSION['error']); ?>
+            <?php endif; ?>
+            <form id="reservationForm" action="/actions/process-reservation.php" method="POST">
                 <input type="hidden" name="car_id" value="<?= $car['id'] ?>">
                 <div class="form-group">
                     <label for="start_date">Startdatum:</label>
@@ -90,6 +128,7 @@ try {
             </form>
         </div>
     </div>
+    <?php endif; ?>
 
     <style>
     .modal {
@@ -146,6 +185,31 @@ try {
         color: #1A202C;
         margin-top: 0.5rem;
     }
+
+    .car-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .favorite-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: #94a2bc;
+        padding: 0.5rem;
+        transition: color 0.3s ease;
+    }
+
+    .favorite-btn.active {
+        color: #f55f5f;
+    }
+
+    .favorite-btn:hover {
+        transform: scale(1.1);
+    }
     </style>
 
     <script>
@@ -157,13 +221,18 @@ try {
         const endDate = document.getElementById('end_date');
         const totalPrice = document.getElementById('totalPrice');
         const dailyPrice = <?= $car['price'] ?>;
+        const favoriteBtn = document.querySelector('.favorite-btn');
 
-        btn.onclick = function() {
-            modal.style.display = "block";
+        if (btn) {
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
         }
 
-        span.onclick = function() {
-            modal.style.display = "none";
+        if (span) {
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
         }
 
         window.onclick = function(event) {
@@ -173,7 +242,7 @@ try {
         }
 
         function calculateTotalPrice() {
-            if (startDate.value && endDate.value) {
+            if (startDate && endDate && startDate.value && endDate.value) {
                 const start = new Date(startDate.value);
                 const end = new Date(endDate.value);
                 const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
@@ -186,16 +255,44 @@ try {
             }
         }
 
-        startDate.addEventListener('change', calculateTotalPrice);
-        endDate.addEventListener('change', calculateTotalPrice);
+        if (startDate && endDate) {
+            startDate.addEventListener('change', calculateTotalPrice);
+            endDate.addEventListener('change', calculateTotalPrice);
+        }
+
+        if (favoriteBtn) {
+            favoriteBtn.addEventListener('click', function() {
+                const carId = this.dataset.carId;
+                fetch('/actions/toggle-favorite.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'car_id=' + carId
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const icon = this.querySelector('i');
+                        if (data.action === 'added') {
+                            icon.classList.remove('fa-regular');
+                            icon.classList.add('fa-solid');
+                            this.classList.add('active');
+                        } else {
+                            icon.classList.remove('fa-solid');
+                            icon.classList.add('fa-regular');
+                            this.classList.remove('active');
+                        }
+                    }
+                });
+            });
+        }
     });
     </script>
-
 <?php
     }
 } catch(PDOException $e) {
-    echo "<div class='container'><h2>Er is een fout opgetreden</h2></div>";
+    echo "Error: " . $e->getMessage();
 }
-
 require "includes/footer.php";
 ?>

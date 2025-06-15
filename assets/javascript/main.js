@@ -13,7 +13,8 @@ if (accountImage) {
     });
 }
 
-const startButton = document.querySelector('.button-primary');
+// Alleen de "Start met huren" knop in de header triggeren de login modal
+const startButton = document.querySelector('.menu .button-primary');
 if (startButton) {
     startButton.addEventListener('click', function(e) {
         e.preventDefault();
