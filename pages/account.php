@@ -92,12 +92,10 @@ try {
             ?>
         </div>
     </div>
-</div>
 
-<main class="account-page">
-    <div class="container">
-        <div class="page-header">
-            <h1>Mijn Reserveringen</h1>
+    <div class="reservations-section">
+        <div class="section-header">
+            <h2>Mijn Reserveringen</h2>
             <a href="/ons-aanbod" class="button-primary">Nieuwe reservering</a>
         </div>
         
@@ -111,7 +109,7 @@ try {
             <?php unset($_SESSION['error']); ?>
         <?php endif; ?>
 
-        <div class="reservations">
+        <div class="reservations-grid">
             <?php if (empty($reservations)): ?>
                 <div class="empty-state">
                     <img src="/assets/images/empty-reservations.svg" alt="Geen reserveringen" class="empty-image">
@@ -120,10 +118,9 @@ try {
                     <a href="/ons-aanbod" class="button-primary">Bekijk ons aanbod</a>
                 </div>
             <?php else: ?>
-                <div class="reservation-list">
                     <?php foreach ($reservations as $reservation): ?>
                         <div class="reservation-card">
-                            <div class="reservation-image">
+                        <div class="car-image">
                                 <img src="/<?= htmlspecialchars($reservation['image_url']) ?>" alt="<?= htmlspecialchars($reservation['brand']) ?>">
                                 <span class="status-badge status-<?= $reservation['status'] ?>">
                                     <?php
@@ -144,28 +141,21 @@ try {
                                     ?>
                                 </span>
                             </div>
-                            <div class="reservation-details">
-                                <div class="reservation-header">
+                        <div class="car-info">
                                     <h3><?= htmlspecialchars($reservation['brand']) ?><?= $reservation['model'] ? ' ' . htmlspecialchars($reservation['model']) : '' ?></h3>
-                                    <div class="reservation-price">
-                                        €<?= number_format($reservation['total_price'], 2, ',', '.') ?>
-                                    </div>
+                            <div class="reservation-dates">
+                                <div class="date-item">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>Start: <?= date('d-m-Y', strtotime($reservation['start_date'])) ?></span>
                                 </div>
-                                <div class="reservation-info">
-                                    <div class="info-item">
-                                        <img src="/assets/images/icons/calendar.svg" alt="Datum">
-                                        <div>
-                                            <span class="label">Startdatum</span>
-                                            <span class="value"><?= date('d-m-Y', strtotime($reservation['start_date'])) ?></span>
+                                <div class="date-item">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>Eind: <?= date('d-m-Y', strtotime($reservation['end_date'])) ?></span>
                                         </div>
                                     </div>
-                                    <div class="info-item">
-                                        <img src="/assets/images/icons/calendar.svg" alt="Datum">
-                                        <div>
-                                            <span class="label">Einddatum</span>
-                                            <span class="value"><?= date('d-m-Y', strtotime($reservation['end_date'])) ?></span>
-                                        </div>
-                                    </div>
+                            <div class="car-price">
+                                <span class="amount">€<?= number_format($reservation['total_price'], 2, ',', '.') ?></span>
+                                <span class="period">totaal</span>
                                 </div>
                                 <?php if ($reservation['status'] === 'pending' || $reservation['status'] === 'confirmed'): ?>
                                     <form action="/actions/cancel-reservation.php" method="POST" class="cancel-form">
@@ -176,91 +166,88 @@ try {
                             </div>
                         </div>
                     <?php endforeach; ?>
-                </div>
             <?php endif; ?>
         </div>
     </div>
-</main>
+</div>
 
 <style>
-.account-page {
-    padding: 2rem 0;
-    background-color: #f8f9fa;
-    min-height: calc(100vh - 200px);
+.account-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
-.page-header {
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.profile-photo img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info h2 {
+    margin: 0;
+    color: #1a202c;
+}
+
+.favorites-section,
+.reservations-section {
+    margin-bottom: 3rem;
+}
+
+.section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
 }
 
-.page-header h1 {
+.section-header h2 {
     margin: 0;
-    font-size: 2rem;
     color: #1a202c;
 }
 
-.reservations {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.empty-state {
-    text-align: center;
-    padding: 3rem 1rem;
-}
-
-.empty-image {
-    width: 200px;
-    height: 200px;
-    margin-bottom: 1.5rem;
-}
-
-.empty-state h2 {
-    color: #1a202c;
-    margin-bottom: 0.5rem;
-}
-
-.empty-state p {
-    color: #718096;
-    margin-bottom: 1.5rem;
-}
-
-.reservation-list {
+.favorites-grid,
+.reservations-grid {
     display: grid;
-    gap: 1.5rem;
-}
-
-.reservation-card {
-    display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
-    padding: 1.5rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
+}
+
+.car-card,
+.reservation-card {
     background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.car-card:hover,
 .reservation-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.reservation-image {
+.car-image {
     position: relative;
-    border-radius: 8px;
+    height: 200px;
     overflow: hidden;
 }
 
-.reservation-image img {
+.car-image img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: 100%;
+    object-fit: contain;
+    background-color: #f8f9fa;
+    padding: 1rem;
 }
 
 .status-badge {
@@ -294,115 +281,140 @@ try {
     color: #383d41;
 }
 
-.reservation-details {
-    display: flex;
-    flex-direction: column;
+.car-info {
+    padding: 1.5rem;
 }
 
-.reservation-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-}
-
-.reservation-header h3 {
-    margin: 0;
-    font-size: 1.5rem;
+.car-info h3 {
+    margin: 0 0 1rem 0;
     color: #1a202c;
 }
 
-.reservation-price {
+.car-category {
+    color: #718096;
+    margin-bottom: 1rem;
+}
+
+.reservation-dates {
+    margin-bottom: 1rem;
+}
+
+.date-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #718096;
+    margin-bottom: 0.5rem;
+}
+
+.car-price {
+    margin-bottom: 1rem;
+}
+
+.car-price .amount {
     font-size: 1.25rem;
     font-weight: 600;
     color: #2d3748;
 }
 
-.reservation-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.info-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.info-item img {
-    width: 24px;
-    height: 24px;
-    opacity: 0.5;
-}
-
-.info-item .label {
-    display: block;
-    font-size: 0.875rem;
+.car-price .period {
     color: #718096;
-    margin-bottom: 0.25rem;
+    margin-left: 0.25rem;
 }
 
-.info-item .value {
-    display: block;
+.button-primary,
+.button-secondary {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
     font-weight: 500;
-    color: #2d3748;
+    text-decoration: none;
+    transition: background-color 0.2s;
 }
 
-.cancel-form {
-    margin-top: auto;
+.button-primary {
+    background: #4299e1;
+    color: white;
+}
+
+.button-primary:hover {
+    background: #3182ce;
 }
 
 .button-secondary {
     background: #dc3545;
     color: white;
     border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
     cursor: pointer;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: background-color 0.2s;
+    width: 100%;
 }
 
 .button-secondary:hover {
     background: #c82333;
 }
 
-.success-message {
-    background: #d4edda;
-    color: #155724;
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 1rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.empty-image {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 1.5rem;
+}
+
+.empty-state h2 {
+    color: #1a202c;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: #718096;
+    margin-bottom: 1.5rem;
+}
+
+.success-message,
+.error-message {
     padding: 1rem;
     border-radius: 6px;
     margin-bottom: 1.5rem;
+}
+
+.success-message {
+    background: #d4edda;
+    color: #155724;
 }
 
 .error-message {
     background: #f8d7da;
     color: #721c24;
-    padding: 1rem;
-    border-radius: 6px;
-    margin-bottom: 1.5rem;
 }
 
 @media (max-width: 768px) {
-    .reservation-card {
-        grid-template-columns: 1fr;
+    .account-container {
+        padding: 1rem;
     }
 
-    .reservation-image {
-        height: 200px;
+    .profile-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
     }
 
-    .reservation-image img {
-        height: 100%;
-    }
-
-    .page-header {
+    .section-header {
         flex-direction: column;
         gap: 1rem;
         text-align: center;
+    }
+
+    .favorites-grid,
+    .reservations-grid {
+        grid-template-columns: 1fr;
     }
 }
 </style>
