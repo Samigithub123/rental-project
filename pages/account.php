@@ -1,6 +1,6 @@
 <?php 
-require "../includes/header.php";
-require_once "../database/connection.php";
+require "includes/header.php";
+require_once "database/connection.php";
 
 // Check if user is logged in
 if (!isset($_SESSION['id'])) {
@@ -114,24 +114,6 @@ try {
                         <div class="reservation-card">
                         <div class="car-image">
                                 <img src="/<?= htmlspecialchars($reservation['image_url']) ?>" alt="<?= htmlspecialchars($reservation['brand']) ?>">
-                                <span class="status-badge status-<?= $reservation['status'] ?>">
-                                    <?php
-                                    switch($reservation['status']) {
-                                        case 'pending':
-                                            echo 'In afwachting';
-                                            break;
-                                        case 'confirmed':
-                                            echo 'Bevestigd';
-                                            break;
-                                        case 'cancelled':
-                                            echo 'Geannuleerd';
-                                            break;
-                                        case 'completed':
-                                            echo 'Afgerond';
-                                            break;
-                                    }
-                                    ?>
-                                </span>
                             </div>
                         <div class="car-info">
                                     <h3><?= htmlspecialchars($reservation['brand']) ?><?= $reservation['model'] ? ' ' . htmlspecialchars($reservation['model']) : '' ?></h3>
@@ -149,12 +131,10 @@ try {
                                 <span class="amount">€<?= number_format($reservation['total_price'], 2, ',', '.') ?></span>
                                 <span class="period">totaal</span>
                                 </div>
-                                <?php if ($reservation['status'] === 'pending' || $reservation['status'] === 'confirmed'): ?>
-                                    <form action="/actions/cancel-reservation.php" method="POST" class="cancel-form">
-                                        <input type="hidden" name="reservation_id" value="<?= $reservation['id'] ?>">
-                                        <button type="submit" class="button-secondary" onclick="return confirm('Weet je zeker dat je deze reservering wilt annuleren?')">Annuleren</button>
-                                    </form>
-                                <?php endif; ?>
+                                <form action="/actions/cancel-reservation.php" method="POST" class="cancel-form">
+                                    <input type="hidden" name="reservation_id" value="<?= $reservation['id'] ?>">
+                                    <button type="submit" class="button-secondary" onclick="return confirm('Weet je zeker dat je deze reservering wilt annuleren?')">Annuleren</button>
+                                </form>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -231,37 +211,6 @@ try {
     object-fit: contain;
     background-color: #f8f9fa;
     padding: 1rem;
-}
-
-.status-badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.status-pending {
-    background: #fff3cd;
-    color: #856404;
-}
-
-.status-confirmed {
-    background: #d4edda;
-    color: #155724;
-}
-
-.status-cancelled {
-    background: #f8d7da;
-    color: #721c24;
-}
-
-.status-completed {
-    background: #e2e3e5;
-    color: #383d41;
 }
 
 .car-info {
@@ -436,7 +385,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<?php require "../includes/footer.php" ?>
+<?php
+try {
+    require "includes/footer.php";
+} catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
 
 
 

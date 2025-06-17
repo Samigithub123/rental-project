@@ -69,3 +69,26 @@ ALTER TABLE `cars`
 ALTER TABLE `cars`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 COMMIT;
+
+CREATE TABLE IF NOT EXISTS reservations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    car_id INT NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    total_price DECIMAL(10,2) NOT NULL,
+    status ENUM('success', 'cancelled') DEFAULT 'success',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES account(id),
+    FOREIGN KEY (car_id) REFERENCES cars(id)
+);
+
+-- Update existing reservations to use new status values
+UPDATE reservations 
+SET status = 'success' 
+WHERE status IN ('pending', 'confirmed', 'completed');
+
+-- Modify the status column to only allow 'success' and 'cancelled'
+ALTER TABLE reservations 
+MODIFY COLUMN status ENUM('success', 'cancelled') DEFAULT 'success';
