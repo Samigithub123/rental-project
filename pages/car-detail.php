@@ -97,6 +97,56 @@ try {
                     </div>
                 </div>
             </div>
+
+            <div class="container">
+                <div class="reviews-section">
+                    <h2>Reviews</h2>
+                    
+                    <?php if (isset($_SESSION['id'])): ?>
+                        <form action="/actions/add-review.php" method="POST" class="review-form">
+                            <input type="hidden" name="car_id" value="<?= $car_id ?>">
+                            <textarea name="comment" placeholder="Schrijf je review..." required></textarea>
+                            <button type="submit" class="button-primary">Plaats review</button>
+                        </form>
+                    <?php else: ?>
+                        <p class="login-message">Log in om een review te plaatsen</p>
+                    <?php endif; ?>
+
+                    <div class="reviews-list">
+                        <?php
+                        try {
+                            $stmt = $conn->prepare("
+                                SELECT r.*, a.email 
+                                FROM reviews r 
+                                JOIN account a ON r.user_id = a.id 
+                                WHERE r.car_id = ? 
+                                ORDER BY r.created_at DESC
+                            ");
+                            $stmt->execute([$car_id]);
+                            $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                            if (count($reviews) > 0) {
+                                foreach ($reviews as $review) {
+                                    ?>
+                                    <div class="review-card">
+                                        <div class="review-header">
+                                            <span class="reviewer-email"><?= htmlspecialchars($review['email']) ?></span>
+                                            <span class="review-date"><?= date('d-m-Y', strtotime($review['created_at'])) ?></span>
+                                        </div>
+                                        <p class="review-comment"><?= nl2br(htmlspecialchars($review['comment'])) ?></p>
+                                    </div>
+                                    <?php
+                                }
+                            } else {
+                                echo '<p class="no-reviews">Nog geen reviews voor deze auto.</p>';
+                            }
+                        } catch(PDOException $e) {
+                            echo '<p class="error-message">Er is een fout opgetreden bij het ophalen van de reviews.</p>';
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -209,6 +259,94 @@ try {
 
     .favorite-btn:hover {
         transform: scale(1.1);
+    }
+
+    .reviews-section {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        padding: 2rem;
+        margin-top: 2rem;
+    }
+
+    .reviews-section h2 {
+        color: #1A202C;
+        margin-bottom: 1.5rem;
+    }
+
+    .review-form {
+        background: #F6F7F9;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+    }
+
+    .review-form textarea {
+        width: 100%;
+        min-height: 100px;
+        padding: 1rem;
+        border: 1px solid #E2E8F0;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        resize: vertical;
+    }
+
+    .login-message {
+        background: #F6F7F9;
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        color: #596780;
+    }
+
+    .reviews-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .review-card {
+        background: #F6F7F9;
+        padding: 1.5rem;
+        border-radius: 8px;
+    }
+
+    .review-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+    }
+
+    .reviewer-email {
+        font-weight: 500;
+        color: #1A202C;
+    }
+
+    .review-date {
+        color: #596780;
+        font-size: 0.875rem;
+    }
+
+    .review-comment {
+        color: #596780;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .no-reviews {
+        text-align: center;
+        color: #596780;
+        padding: 2rem;
+        background: #F6F7F9;
+        border-radius: 8px;
+    }
+
+    .error-message {
+        color: #E53E3E;
+        text-align: center;
+        padding: 1rem;
+        background: #FFF5F5;
+        border-radius: 8px;
     }
     </style>
 

@@ -37,13 +37,6 @@ try {
 
 <div class="account-container">
     <div class="profile-section">
-        <div class="profile-photo">
-            <?php if(isset($_SESSION['profile_image'])): ?>
-                <img src="<?php echo $_SESSION['profile_image']; ?>" alt="Profile Photo">
-            <?php else: ?>
-                <img src="/assets/images/profil.png" alt="Default Profile Photo">
-            <?php endif; ?>
-        </div>
         <div class="profile-info">
             <h2>Welkom, <?php echo isset($_SESSION['username']) ? $_SESSION['username'] : 'Gebruiker'; ?></h2>
         </div>
@@ -112,7 +105,6 @@ try {
         <div class="reservations-grid">
             <?php if (empty($reservations)): ?>
                 <div class="empty-state">
-                    <img src="/assets/images/empty-reservations.svg" alt="Geen reserveringen" class="empty-image">
                     <h2>Nog geen reserveringen</h2>
                     <p>Je hebt nog geen auto's gereserveerd. Bekijk ons aanbod en maak je eerste reservering!</p>
                     <a href="/ons-aanbod" class="button-primary">Bekijk ons aanbod</a>
@@ -179,22 +171,13 @@ try {
 }
 
 .profile-section {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
     margin-bottom: 3rem;
-}
-
-.profile-photo img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
 }
 
 .profile-info h2 {
     margin: 0;
     color: #1a202c;
+    text-align: left;
 }
 
 .favorites-section,
@@ -342,11 +325,10 @@ try {
 }
 
 .button-secondary {
-    background: #dc3545;
+    background: #3563e9;
     color: white;
     border: none;
     cursor: pointer;
-    width: 100%;
 }
 
 .button-secondary:hover {
@@ -398,12 +380,6 @@ try {
 @media (max-width: 768px) {
     .account-container {
         padding: 1rem;
-    }
-
-    .profile-section {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
     }
 
     .section-header {
