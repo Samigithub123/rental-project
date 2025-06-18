@@ -1,6 +1,6 @@
 <?php 
-require "includes/header.php";
-require_once "database/connection.php";
+require_once __DIR__ . "/../includes/header.php";
+require_once __DIR__ . "/../database/connection.php";
 
 // Check if user is logged in
 if (!isset($_SESSION['id'])) {
@@ -387,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <?php
 try {
-    require "includes/footer.php";
+    require_once __DIR__ . "/../includes/footer.php";
 } catch(PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
