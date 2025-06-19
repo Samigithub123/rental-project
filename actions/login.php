@@ -10,7 +10,7 @@ $user = $select_user->fetch(PDO::FETCH_ASSOC);
 if (password_verify($_POST['password'], $user['password'])) {
     $_SESSION['id'] = $user['id'];
     $_SESSION['email'] = $user['email'];
-    header('Location: /');
+    header('Location: /pages/home.php');
     exit();
 } else {
     $_SESSION['message'] = "Ongeldige e-mail of wachtwoord.";
