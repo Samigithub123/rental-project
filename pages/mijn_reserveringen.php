@@ -73,15 +73,6 @@ try {
                             <div class="price">
                                 <strong>Totale prijs:</strong> €<?= number_format($reservation['total_price'], 2, ',', '.') ?>
                             </div>
-                            <div class="status <?= $reservation['status'] ?>">
-                                <?= ucfirst($reservation['status']) ?>
-                            </div>
-                            <?php if ($reservation['status'] === 'pending'): ?>
-                                <form action="/cancel-reservation.php" method="POST" class="cancel-form">
-                                    <input type="hidden" name="reservation_id" value="<?= $reservation['id'] ?>">
-                                    <button type="submit" class="button-secondary">Annuleer reservering</button>
-                                </form>
-                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>

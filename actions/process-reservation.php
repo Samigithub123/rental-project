@@ -38,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Insert reservation
         $stmt = $conn->prepare("
-            INSERT INTO reservations (user_id, car_id, start_date, end_date, total_price, status) 
-            VALUES (?, ?, ?, ?, ?, 'pending')
+            INSERT INTO reservations (user_id, car_id, start_date, end_date, total_price)
+            VALUES (?, ?, ?, ?, ?)
         ");
         $stmt->execute([$_SESSION['id'], $car_id, $start_date, $end_date, $total_price]);
 

@@ -29,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $conn->prepare("
             SELECT COUNT(*) FROM reservations 
             WHERE car_id = ? 
-            AND status != 'cancelled'
             AND (
                 (start_date <= ? AND end_date >= ?) OR
                 (start_date <= ? AND end_date >= ?) OR
@@ -47,8 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Create reservation
         $stmt = $conn->prepare("
-            INSERT INTO reservations (car_id, user_id, start_date, end_date, total_price, status)
-            VALUES (?, ?, ?, ?, ?, 'pending')
+            INSERT INTO reservations (car_id, user_id, start_date, end_date, total_price)
+            VALUES (?, ?, ?, ?, ?)
         ");
         $stmt->execute([$car_id, $user_id, $start_date, $end_date, $total_price]);
 
