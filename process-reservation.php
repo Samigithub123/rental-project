@@ -22,6 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $start = new DateTime($start_date);
         $end = new DateTime($end_date);
+        
+        // Controleer of de einddatum na de startdatum ligt
+        if ($end <= $start) {
+            $_SESSION['error'] = "De einddatum moet na de startdatum liggen.";
+            header('Location: /car-detail.php?id=' . $car_id);
+            exit();
+        }
+        
         $days = $start->diff($end)->days;
         $total_price = $days * $car['price'];
 

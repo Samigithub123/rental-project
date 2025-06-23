@@ -34,6 +34,25 @@ require_once "database/connection.php";
                         ?>
                     </div>
                 </div>
+                <div class="filter-section">
+                    <h2>Transmissie</h2>
+                    <div class="transmission-filters">
+                        <button class="transmission-btn" data-transmission="Automaat">Automaat</button>
+                        <button class="transmission-btn" data-transmission="Semi-automaat">Semi-automaat</button>
+                        <button class="transmission-btn" data-transmission="Handgeschakeld">Handgeschakeld</button>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <h2>Capaciteit</h2>
+                    <div class="capacity-filter">
+                        <label for="capacityRange">Aantal zitplaatsen:</label>
+                        <input type="range" id="capacityMin" min="2" max="9" value="2" style="width: 40%;"> 
+                        <span id="capacityMinValue">2</span>
+                        <span>t/m</span>
+                        <input type="range" id="capacityMax" min="2" max="9" value="9" style="width: 40%;">
+                        <span id="capacityMaxValue">9</span>
+                    </div>
+                </div>
             </div>
         </aside>
         <div class="cars-section">
@@ -78,7 +97,12 @@ require_once "database/connection.php";
 document.addEventListener('DOMContentLoaded', function() {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const categoryBtns = document.querySelectorAll('.category-btn');
+    const transmissionBtns = document.querySelectorAll('.transmission-btn');
     const cars = document.querySelectorAll('.car-details');
+    const capacityMin = document.getElementById('capacityMin');
+    const capacityMax = document.getElementById('capacityMax');
+    const capacityMinValue = document.getElementById('capacityMinValue');
+    const capacityMaxValue = document.getElementById('capacityMaxValue');
 
     const urlParams = new URLSearchParams(window.location.search);
     const filterType = urlParams.get('filter');
@@ -87,13 +111,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const activeType = document.querySelector('.filter-btn.active').dataset.type;
         const activeCategories = Array.from(document.querySelectorAll('.category-btn.active'))
             .map(btn => btn.dataset.category);
+        const activeTransmissionBtn = document.querySelector('.transmission-btn.active');
+        const activeTransmission = activeTransmissionBtn ? activeTransmissionBtn.dataset.transmission : null;
+        const minCapacity = parseInt(capacityMin ? capacityMin.value : 2);
+        const maxCapacity = parseInt(capacityMax ? capacityMax.value : 9);
 
         cars.forEach(car => {
             const matchesType = activeType === 'all' || car.dataset.type === activeType;
             const matchesCategory = activeCategories.length === 0 || 
                                   activeCategories.includes(car.dataset.category);
-            
-            car.style.display = matchesType && matchesCategory ? 'flex' : 'none';
+            const matchesTransmission = !activeTransmission || car.querySelector('.car-specification span:nth-child(2)').textContent.trim() === activeTransmission;
+            const carCapacity = parseInt(car.querySelector('.car-specification span:nth-child(3)').textContent.trim());
+            const matchesCapacity = carCapacity >= minCapacity && carCapacity <= maxCapacity;
+            car.style.display = matchesType && matchesCategory && matchesTransmission && matchesCapacity ? 'flex' : 'none';
         });
     }
 
@@ -120,6 +150,39 @@ document.addEventListener('DOMContentLoaded', function() {
             filterCars();
         });
     });
+
+    transmissionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (btn.classList.contains('active')) {
+                btn.classList.remove('active');
+            } else {
+                transmissionBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+            filterCars();
+        });
+    });
+
+    if (capacityMin && capacityMax) {
+        function syncCapacitySliders() {
+            let min = parseInt(capacityMin.value);
+            let max = parseInt(capacityMax.value);
+            if (min > max) {
+                if (event.target === capacityMin) {
+                    capacityMax.value = min;
+                    max = min;
+                } else {
+                    capacityMin.value = max;
+                    min = max;
+                }
+            }
+            capacityMinValue.textContent = min;
+            capacityMaxValue.textContent = max;
+            filterCars();
+        }
+        capacityMin.addEventListener('input', syncCapacitySliders);
+        capacityMax.addEventListener('input', syncCapacitySliders);
+    }
 });
 </script>
 

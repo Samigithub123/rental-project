@@ -89,7 +89,9 @@ try {
     <div class="reservations-section">
         <div class="section-header">
             <h2>Mijn Reserveringen</h2>
-            <a href="/ons-aanbod" class="button-primary">Nieuwe reservering</a>
+            <?php if (!empty($reservations)): ?>
+                <a href="/ons-aanbod" class="button-primary">Nieuwe reservering</a>
+            <?php endif; ?>
         </div>
         
         <?php if (isset($_SESSION['success'])): ?>

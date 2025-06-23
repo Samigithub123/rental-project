@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['id'] = $user['id'];
             $_SESSION['email'] = $user['email'];
-            header('Location: /account');
+            header('Location: /home');
             exit();
         } else {
             $_SESSION['error'] = "Ongeldig emailadres of wachtwoord";

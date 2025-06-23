@@ -161,6 +161,7 @@ try {
                 <?php unset($_SESSION['error']); ?>
             <?php endif; ?>
             <form id="reservationForm" action="/actions/process-reservation.php" method="POST">
+                <div id="reservationError" class="error-message" style="display:none;"></div>
                 <input type="hidden" name="car_id" value="<?= $car['id'] ?>">
                 <div class="form-group">
                     <label for="start_date">Startdatum:</label>
@@ -348,6 +349,14 @@ try {
         background: #FFF5F5;
         border-radius: 8px;
     }
+
+    .success-message {
+        color: #2E7D32;
+        text-align: center;
+        padding: 1rem;
+        background: #E6F4EA;
+        border-radius: 8px;
+    }
     </style>
 
     <script>
@@ -360,6 +369,7 @@ try {
         const totalPrice = document.getElementById('totalPrice');
         const dailyPrice = <?= $car['price'] ?>;
         const favoriteBtn = document.querySelector('.favorite-btn');
+        const reservationForm = document.getElementById('reservationForm');
 
         if (btn) {
             btn.onclick = function() {
@@ -423,6 +433,23 @@ try {
                         }
                     }
                 });
+            });
+        }
+
+        if (reservationForm) {
+            reservationForm.addEventListener('submit', function(e) {
+                const start = new Date(startDate.value);
+                const end = new Date(endDate.value);
+                const errorDiv = document.getElementById('reservationError');
+                if (end <= start) {
+                    e.preventDefault();
+                    errorDiv.textContent = 'De einddatum moet na de startdatum liggen.';
+                    errorDiv.style.display = 'block';
+                    endDate.focus();
+                } else {
+                    errorDiv.textContent = '';
+                    errorDiv.style.display = 'none';
+                }
             });
         }
     });
